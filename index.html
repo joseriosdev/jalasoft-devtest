@@ -10,11 +10,67 @@
 
     <title>Trello test</title>
   </head>
-  <body>
-    <h1 class="bg-warning text-center text-white display-1">Trello Test!</h1>
+  <body class="container-fluid bg-dark">
+    <header class="bg-primary text-center text-white mb-4">
+      <h1 class=" display-3">Trello JalaSoft test!</h1>
+    </header>
+    <main class="row container-fluid">
+      <form class="bg-light col-sm-12 col-md-6 mx-auto p-2 rounded" id="form">
+        <h2 class="mb-4 text-primary text-center">Create boards, lists and cards</h2>
+        <p class="text-muted"><em>To create a list or card <strong>you will need</strong> to add a board name first.</em></p>
+        <div class="mb-3">
+          <label for="board" class="form-label">Board Name<span class="text-danger">*</span></label>
+          <input type="text" name="board" id="board" class="form-control" required placeholder="add a board">
+        </div>
+        <div class="mb-3">
+          <label for="board" class="form-label">List Name</label>
+          <input type="text" name="board" id="list" class="form-control" placeholder="add a list">
+        </div>
+        <div class="mb-3">
+          <label for="board" class="form-label">Card Name</label>
+          <input type="text" name="board" id="card" class="form-control" placeholder="add a card">
+        </div>
+        <hr class="mb-4">
+        <div class="mx-auto w-50 my-3">
+          <button class="btn btn-primary d-inline-block" type="submit" id="btn-add-item">
+            Add Item
+          </button>
+          <strong>OR</strong>
+          <!-- Modal (from bootstrap) trigger -->
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSearch">
+            Search Board
+          </button>
+        </div>
+        <div id="alert-message" class="text-white rounded my-3"></div>
+      </form>
+    </main>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalSearch" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">Search any</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="modal-form">
+              <div class="mb-3">
+                <label for="search-bar" class="form-label">Search something</label>
+                <input type="text" placeholder="search" id="search-bar" class="form-control">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Search</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="scripts/apiCalls.js"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
   </body>
 </html>
