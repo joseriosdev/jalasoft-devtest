@@ -1,19 +1,14 @@
 // visit api link documentation here
 // https://developer.atlassian.com/cloud/trello/guides/rest-api/api-introduction/
-// curl --request POST \
- /* --url 'https://api.trello.com/1/boards/?key=0471642aefef5fa1fa76530ce1ba4c85&token=9eb76d9a9d02b8dd40c2f3e5df18556c831d4d1fadbe2c45f8310e6c93b5c548&name={name}'*/
-
-const API_KEY = "7b738a4073116f90588fff2455603834";
-const TOKEN = "2dd3912586fd373d6bfb656db9ca66ec22bc42f7756b248fabaa99178be98657";
 
 const BTN_ADD = document.getElementById("btn-add-item");
 const FORM = document.getElementById("form");
+const MODAL_FORM = document.getElementById("modal-form");
+const MODAL_BTN = document.getElementById("search-btn");
 
-
-
-
-
+// only 2 events, one for each btn (add & search)
 FORM.addEventListener("submit", addItem);
+MODAL_BTN.addEventListener("click", searchItem);
 
 function addItem(evt) {
 	evt.preventDefault();
@@ -23,27 +18,48 @@ function addItem(evt) {
 	const CARD = document.getElementById("card").value;
 
 	let apiCalls = new ApiCalls();
+	let ui = new UI();
 
-	apiCalls.postBoard(BOARD);
+	apiCalls.postBoard(BOARD)
+		.then((res) => {
+			console.log(res);
+			ui.alertMessage("Item added", "bg-success");
+		});
+
 	apiCalls.getBoards()
 		.then((res) => console.log(res));
-
-	console.log(evt)
-	console.log(BOARD + LIST + CARD)
-	console.log(CARD)
 	
 }
 
+function searchItem(evt) {
+	evt.preventDefault();
+	console.log("entre en el evento");
+	const SEARCH_BAR = document.getElementById("search-bar").value;
 
+	let apiCalls = new ApiCalls();
 
-
-async function getBoards(boardId = "boards") {
-	const response = await fetch(`https://api.trello.com/1/members/me/boards/?key=7b738a4073116f90588fff2455603834&token=2dd3912586fd373d6bfb656db9ca66ec22bc42f7756b248fabaa99178be98657`);
-	const data = await response.json();
-
-	return data;
+	apiCalls.getBoards()
+		.then((res) => locateBoardNames(res, SEARCH_BAR))
+		.catch((err) => console.log(err));
 }
 
-getBoards()
-	.then((response) => console.log(response))
-	.catch((err) => console.log(err));
+
+function locateBoardNames(boardListObj, data) {
+	for (let i=0; i<boardListObj.length; i++) {
+		console.log("entre en el for");
+		if (data === boardListObj[i].name) {
+			let searchDisplay = document.getElementById("search-display");
+			searchDisplay.innerHTML = ""; //for cleaning when creating a new search
+			
+			let ul = document.createElement("ul");
+
+			ul.innerHTML = `<li>${boardListObj[i].name}</li>`;
+
+			searchDisplay.appendChild(ul);
+		} 				
+		else if (i == boardListObj.length-1) {
+			let ui = new UI();
+			ui.alertModalMessage("Nothing to show", "bg-warning");
+		}
+	}
+}
