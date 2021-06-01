@@ -10,7 +10,7 @@
 
     <title>Trello test</title>
   </head>
-  <body class="container-fluid bg-dark">
+  <body class="bg-dark">
     <header class="bg-primary text-center text-white mb-4">
       <h1 class=" display-3">Trello JalaSoft test!</h1>
     </header>
@@ -20,22 +20,26 @@
         <p class="text-muted"><em>To create a list or card <strong>you will need</strong> to add a board name first.</em></p>
         <div class="mb-3">
           <label for="board" class="form-label">Board Name<span class="text-danger">*</span></label>
-          <input type="text" name="board" id="board" class="form-control" required placeholder="add a board">
+          <input type="text" name="board-item" id="board" class="form-control" 
+          placeholder="add a board" required>
+          <p class="invalid-feedback">
+            Please, use only letters and numbers.
+          </p>
         </div>
         <div class="mb-3">
           <label for="board" class="form-label">List Name</label>
-          <input type="text" name="board" id="list" class="form-control" placeholder="add a list">
+          <input type="text" name="board-item" id="list" class="form-control" placeholder="add a list">
         </div>
         <div class="mb-3">
           <label for="board" class="form-label">Card Name</label>
-          <input type="text" name="board" id="card" class="form-control" placeholder="add a card">
+          <input type="text" name="board-item" id="card" class="form-control" placeholder="add a card">
         </div>
         <hr class="mb-4">
-        <div class="mx-auto w-50 my-3">
+        <div class="mx-auto w-50 my-3 d-flex">
           <button class="btn btn-primary d-inline-block" type="submit" id="btn-add-item">
             Add Item
           </button>
-          <strong>OR</strong>
+          <strong class="d-block m-2">OR</strong>
           <!-- Modal (from bootstrap) trigger -->
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSearch">
             Search Board
@@ -65,7 +69,7 @@
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" id="search-btn">Search</button>
           </div>
-          <div class="p-4" id="search-display"></div>
+          <div class="p-4 rounded text-white" id="search-display"></div>
         </div>
       </div>
     </div>
